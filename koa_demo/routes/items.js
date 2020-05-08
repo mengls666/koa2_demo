@@ -94,7 +94,8 @@ router.get('/sell', async(ctx, next) =>{
 router.get('/pop', async(ctx, next) =>{
     var _id = ctx.request.query.id
     var _amount = ctx.request.query.amount
-    await itemService.pop(_id,_amount).then((res)=>{
+    var _name = ctx.request.query.name
+    await itemService.pop(_id,_name,_amount).then((res)=>{
         if(res.affectedRows==1) {
             ctx.body = {
                 code:"800000",

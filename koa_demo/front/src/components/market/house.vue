@@ -137,7 +137,8 @@ export default {
         url: this.$util.baseUrl + 'items/pop',
         params: {
           id: userid,
-          amount: this.num.trim()
+          amount: this.num.trim(),
+          name=row.name
         }
       })
         .then(res => {

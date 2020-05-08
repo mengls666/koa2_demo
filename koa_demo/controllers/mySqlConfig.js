@@ -87,8 +87,8 @@ let addStock = function (name,owner_id,amount) {
     ON DUPLICATE KEY UPDATE amount = amount + ${amount};`
     return allServices.query(_sql);
 }
-let pop = function (user_id,amount) {
-    let _sql = `update house set amount = amount - ${amount} where (owner_id=${user_id} and amount >=${amount});`
+let pop = function (user_id,name,amount) {
+    let _sql = `update house set amount = amount - ${amount} where (owner_id=${user_id} and name="${name}" and amount >=${amount});`
     return allServices.query(_sql);
 }
 let getAmount = function (user_id) {
