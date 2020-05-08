@@ -138,7 +138,7 @@ export default {
         params: {
           id: userid,
           amount: this.num.trim(),
-          name=row.name
+          name: row.name
         }
       })
         .then(res => {
