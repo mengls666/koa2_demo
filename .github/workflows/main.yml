@@ -29,5 +29,6 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Run a multi-line script
       run: |
+        cd koa_demo
         npm install
-        node koa_demo/bin/www
+        node bin/www
