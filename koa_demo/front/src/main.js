@@ -22,7 +22,7 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     if (to.path !== '/register' && to.path !== '/login') {
-      console.log('请先登录')
+      //console.log('请先登录')
       next('/login')
     } else {
       document.title = to.meta.title

@@ -39,16 +39,19 @@ export default {
       this.$http({
         method: 'get',
         url: this.$util.baseUrl + 'items/myMarket',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
         params: {
           user_id: userid
         }
       })
         .then(res => {
           this.tableData = res.data.data
-          console.log(res)
+          //console.log(res)
         })
         .then(err => {
-          console.log(err)
+          //console.log(err)
         })
     },
     handleBuy (index, row) {
@@ -60,6 +63,9 @@ export default {
       this.$http({
         method: 'get',
         url: this.$util.baseUrl + 'items/buy',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
         params: {
           buyer: userid,
           name: row.name,
@@ -75,25 +81,28 @@ export default {
           this.$toast(res.data.mess)
         }
       }).then((err) => {
-        console.log(err)
+        //console.log(err)
       })
     },
     getAmount () {
       this.$http({
         method: 'get',
         url: this.$util.baseUrl + 'users/amount',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
         params: {
           id: JSON.parse(sessionStorage.getItem('userInfo')).id
         }
       }).then((res) => {
         if (res.data.code === '800000') {
           this.amount = res.data.mess
-          console.log(res.data)
+          //console.log(res.data)
         } else {
           this.$toast(res.data.mess)
         }
       }).then((err) => {
-        console.log(err)
+        //console.log(err)
       })
     }
   },

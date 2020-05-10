@@ -46,8 +46,9 @@ export default {
           userpwd: passwd
         }
       }).then((res) => {
-        console.log(res)
+        //console.log(res)
         if (res.data.code === '800000') {
+          localStorage.setItem('token', res.data.data.token)
           sessionStorage.setItem('userInfo', JSON.stringify(res.data.data))
           this.$toast(res.data.data.nickname + ', 欢迎登陆!')
           this.$router.push({path: '/home'})
@@ -55,7 +56,7 @@ export default {
           this.$toast(res.data.mess)
         }
       }).then((err) => {
-        console.log(err)
+        //console.log(err)
       })
     },
     register () {

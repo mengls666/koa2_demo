@@ -1,5 +1,7 @@
 const router = require('koa-router')()
 const userService = require ('../controllers/mySqlConfig')
+const jwt= require('jsonwebtoken')
+const secret = "it's a secret";
 
 router.prefix('/users')
 
@@ -12,7 +14,12 @@ router.get('/bar', function (ctx, next) {
 })
 router.get('/amount', async(ctx, next) =>{
     var _id=ctx.request.query.id;
-    await userService.getAmount(_id).then((res)=>{
+    if(_id != ctx.state.data.id) {
+        ctx.body= {
+            code: '800005',
+            mess: '权限不够！'
+        }
+    } else await userService.getAmount(_id).then((res)=>{
       if(res.length) {
           ctx.body= {
               code: '800000',
@@ -113,10 +120,16 @@ router.post('/userLogin', async(ctx, next) =>{
         console.log(res);
         if (res.length) {
             r = 'ok';
+            const token = jwt.sign({
+                id:res[0].id,
+                nickname:res[0].nickname,
+                username:res[0].username,
+            }, secret, {expiresIn: '2h' });
             let result = {
                 id:res[0].id,
                 nickname:res[0].nickname,
-                username:res[0].username
+                username:res[0].username,
+                token: token
             }
             ctx.body = {
                 code:"800000",

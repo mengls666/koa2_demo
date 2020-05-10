@@ -31,16 +31,19 @@ export default {
         url: this.$util.baseUrl + 'users/amount',
         params: {
           id: JSON.parse(sessionStorage.getItem('userInfo')).id
-        }
+        },
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
       }).then((res) => {
         if (res.data.code === '800000') {
           this.amount = res.data.mess
-          console.log(res.data)
+          //console.log(res.data)
         } else {
           this.$toast(res.data.mess)
         }
       }).then((err) => {
-        console.log(err)
+        //console.log(err)
       })
     }
   },

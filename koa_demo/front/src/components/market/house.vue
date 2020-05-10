@@ -80,16 +80,19 @@ export default {
       this.$http({
         method: 'get',
         url: this.$util.baseUrl + 'items/myHouse',
+        headers: {
+            'Authorization': 'Bearer ' +localStorage.getItem('token')
+        },
         params: {
           user_id: userid
         }
       })
         .then(res => {
           this.tableData = res.data.data
-          console.log(res)
+          //console.log(res)
         })
         .then(err => {
-          console.log(err)
+          //console.log(err)
         })
     },
     handleSell (index, row) {
@@ -105,6 +108,9 @@ export default {
       this.$http({
         method: 'get',
         url: this.$util.baseUrl + 'items/sell',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
         params: {
           id: userid,
           name: row.name,
@@ -122,7 +128,7 @@ export default {
           }
         })
         .then(err => {
-          console.log(err)
+          //console.log(err)
         })
     },
     handlePop (index, row) {
@@ -135,6 +141,9 @@ export default {
       this.$http({
         method: 'get',
         url: this.$util.baseUrl + 'items/pop',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
         params: {
           id: userid,
           amount: this.num.trim(),
@@ -151,7 +160,7 @@ export default {
           }
         })
         .then(err => {
-          console.log(err)
+          //console.log(err)
         })
     },
     handleAdd (index, row) {
@@ -167,6 +176,9 @@ export default {
       this.$http({
         method: 'get',
         url: this.$util.baseUrl + 'items/addstock',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
         params: {
           id: userid,
           amount: this.add.amount.trim(),
@@ -183,13 +195,16 @@ export default {
           }
         })
         .then(err => {
-          console.log(err)
+          //console.log(err)
         })
     },
     getAmount () {
       this.$http({
         method: 'get',
         url: this.$util.baseUrl + 'users/amount',
+        headers: {
+            'Authorization': 'Bearer ' +  localStorage.getItem('token')
+        },
         params: {
           id: JSON.parse(sessionStorage.getItem('userInfo')).id
         }
@@ -197,13 +212,13 @@ export default {
         .then(res => {
           if (res.data.code === '800000') {
             this.amount = res.data.mess
-            console.log(res.data)
+            //console.log(res.data)
           } else {
             this.$toast(res.data.mess)
           }
         })
         .then(err => {
-          console.log(err)
+          //console.log(err)
         })
     }
   },
