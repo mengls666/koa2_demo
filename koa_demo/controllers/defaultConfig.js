@@ -1,8 +1,8 @@
 const config = {
     database:{
-        DATABASE:"blog_dev",
+        DATABASE:"your-database-name",
         USERNAME:"root",
-        PASSWORD:"wm000819",
+        PASSWORD:"your-password",
         PORT:"3306",
         HOST:"localhost"
     }
