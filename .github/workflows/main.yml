@@ -31,4 +31,6 @@ jobs:
       run: |
         cd koa_demo
         npm install
-        node bin/www
+        cd front
+        npm install
+        npm run build
