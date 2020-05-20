@@ -51,28 +51,32 @@ let insertUser = function (value){
  * 查找用户
  */
 let findUser = function (username){
-    let _sql = `select * from users where username="${username}";`
-    return allServices.query(_sql);
+    let _sql = `select * from users where username=?;`
+    return allServices.query(_sql,username);
 }
 /**
  * 用户登陆
  */
 let userLogin = function (username,userpwd){
-    let _sql = `select * from users where username="${username}" 
-    and userpwd="${userpwd}";`
-    return allServices.query(_sql);
+    let _sql = `select * from users where username=? 
+    and userpwd=?;`
+    return allServices.query(_sql,[username,userpwd]);
 }
 let findMarket = function (userid) {
-    let _sql = `select market.id,users.nickname, market.amount, market.name, price from market left join users on owner_id like concat("%",users.id,"%")  where owner_id<>${userid} and market.amount <> 0;`
-    return allServices.query(_sql);
+    let _sql = `select market.id,users.nickname, market.amount, market.name, price from market left join users on owner_id like concat("%",users.id,"%")  where owner_id<>? and market.amount <> 0;`
+    return allServices.query(_sql,userid);
 }
 let myMarket = function (userid) {
-    let _sql = `select market.id,users.nickname, market.amount, market.name, price  from market left join users on owner_id like concat("%",users.id,"%")  where owner_id=${userid} and market.amount <> 0;`
+    let _sql = `select market.id,users.nickname, market.amount, market.name, price  from market left join users on owner_id like concat("%",users.id,"%")  where owner_id=? and market.amount <> 0;`
+    return allServices.query(_sql,userid);
+}
+let allItems = function () {
+    let _sql = `select market.id,users.nickname, market.amount, market.name, price  from market left join users on owner_id like concat("%",users.id,"%")  where market.amount <> 0;`
     return allServices.query(_sql);
 }
 let myHouse = function (userid) {
-    let _sql = `select * from house where owner_id=${userid} and amount <> 0;`
-    return allServices.query(_sql);
+    let _sql = `select * from house where owner_id=? and amount <> 0;`
+    return allServices.query(_sql,userid);
 }
 let buy = function (value) {
     let _sql = `insert into order_detail set buyer=?,name=?,amount=?,market_id=?;`
@@ -83,17 +87,19 @@ let sell = function (value) {
     return allServices.query(_sql,value);
 }
 let addStock = function (name,owner_id,amount) {
-    let _sql = `INSERT INTO house set name ="${name}", owner_id = ${owner_id},amount = ${amount}
-    ON DUPLICATE KEY UPDATE amount = amount + ${amount};`
-    return allServices.query(_sql);
+    let value = [name, owner_id, amount, amount]
+    let _sql = `INSERT INTO house set name =?, owner_id = ?,amount = ?
+    ON DUPLICATE KEY UPDATE amount = amount + ?;`
+    return allServices.query(_sql, value);
 }
 let pop = function (user_id,name,amount) {
-    let _sql = `update house set amount = amount - ${amount} where (owner_id=${user_id} and name="${name}" and amount >=${amount});`
-    return allServices.query(_sql);
+    let value = [amount, user_id, name, amount]
+    let _sql = `update house set amount = amount - ? where (owner_id=? and name=?and amount >=?);`
+    return allServices.query(_sql,value);
 }
 let getAmount = function (user_id) {
-    let _sql = `select amount from users where id = ${user_id};`
-    return allServices.query(_sql);
+    let _sql = `select amount from users where id = ?;`
+    return allServices.query(_sql,user_id);
 }
 module.exports = {
     getAllUsers,
@@ -107,5 +113,6 @@ module.exports = {
     sell,
     addStock,
     pop,
-    getAmount
+    getAmount,
+    allItems
 }

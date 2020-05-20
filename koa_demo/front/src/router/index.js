@@ -8,6 +8,7 @@ import login from '@/components/login/login'
 import market from '@/components/market/market'
 import mymarket from '@/components/market/mymarket'
 import house from '@/components/market/house'
+import show from '@/components/show'
 Vue.use(Router)
 
 export default new Router({
@@ -26,6 +27,14 @@ export default new Router({
       component: register,
       meta: {
         title: '注册'
+      }
+    },
+    {
+      path: '/show',
+      name: 'show',
+      component: show,
+      meta: {
+        title: '查看商店'
       }
     },
     {

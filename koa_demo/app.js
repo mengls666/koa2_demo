@@ -70,7 +70,7 @@ app.use(async (ctx, next) => {
 app.use(koajwt({
   secret
  }).unless({
-   path: [/\/userLogin/,/\/userRegister/]
+   path: [/\/userLogin/,/\/userRegister/,/\/allItems/]
  }));
 const index = require('./routes/index')
 const users = require('./routes/users')

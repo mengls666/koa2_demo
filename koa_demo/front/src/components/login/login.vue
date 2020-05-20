@@ -10,7 +10,7 @@
                 <label for="userpwd">密码</label><input type="password" id="userpwd" v-model="userpwd">
             </div>
             <el-button type="primary" class="sign" @click="login">登录</el-button>
-            <el-button type="primary" class="forgot-pwd">忘记密码</el-button>
+            <el-button type="primary" class="show" @click="show">查看商店</el-button>
         </div>
         <br><br>
         <el-button type="primary" class="register" @click="register">新用户?点击注册</el-button>
@@ -25,6 +25,9 @@ export default {
         username: '',
         userpwd: ''
       }
+    },
+    show () {
+      this.$router.push({path: '/show'})
     },
     login () {
       var md5 = crypto.createHash('md5')

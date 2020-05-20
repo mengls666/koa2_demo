@@ -46,6 +46,20 @@ router.get('/myMarket', async(ctx, next) =>{
         }
     });
 })
+router.get('/allItems', async(ctx, next) =>{
+    await itemService.allItems().then((res)=>{
+        ctx.body = {
+            code:"800000",
+            data: res,
+            mess:"ok"
+        }  
+    }).catch((err)=>{
+        ctx.body = {
+            code:"800002",
+            data: err
+        }
+    });
+})
 router.get('/myHouse', async(ctx, next) =>{
     var _user = ctx.request.query.user_id
     if(_user != ctx.state.data.id) {
