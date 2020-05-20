@@ -37,7 +37,7 @@ export default {
     getMarket () {
       this.$http({
         method: 'get',
-        url: this.$util.baseUrl + 'items/findMarket',
+        url: this.$util.baseUrl + 'items/allItems',
       })
         .then(res => {
           this.tableData = res.data.data
