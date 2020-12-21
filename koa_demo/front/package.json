@@ -18,7 +18,7 @@
     "axios": "^0.19.2",
     "crypto": "^1.0.1",
     "element-ui": "^2.13.1",
-    "vant": "^1.4.4",
+    "vant": "^2.1.8",
     "vue": "^2.5.2",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.1"
